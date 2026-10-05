@@ -1,0 +1,134 @@
+{
+  "retrieved": "2026-10-05",
+  "purpose": "Visual research references; no reuse license verified",
+  "assets": [
+    {
+      "file": "download.gif",
+      "url": "https://bonzi.link/images/download.gif",
+      "width": 16,
+      "height": 16,
+      "frames": 1,
+      "sha256": "820701d14cad06e81eb0fec257aeb9a384cb55f8c9946f3d94fa7322043542e7"
+    },
+    {
+      "file": "bbabilities2.gif",
+      "url": "https://bonzi.link/images/bbabilities2.gif",
+      "width": 363,
+      "height": 303,
+      "frames": 7,
+      "sha256": "eecc688ed2db900401f394d85b64befae7ced6319af49678d5b104e1ee34f7d0"
+    },
+    {
+      "file": "bbvine.gif",
+      "url": "https://bonzi.link/images/bbvine.gif",
+      "width": 130,
+      "height": 105,
+      "frames": 1,
+      "sha256": "58d0bf159a3df8bbde468999b349ae0df54820936a4d5f089754b1de54b8d260"
+    },
+    {
+      "file": "sepbar.jpg",
+      "url": "https://bonzi.link/images/sepbar.jpg",
+      "width": 245,
+      "height": 15,
+      "frames": 1,
+      "sha256": "5639b593ec413c89628e70906f615ad36fe8ac78754a58a56a71152751306483"
+    },
+    {
+      "file": "meetyou.jpg",
+      "url": "https://bonzi.link/images/meetyou.jpg",
+      "width": 547,
+      "height": 472,
+      "frames": 1,
+      "sha256": "59941acd1f5159cd8197ea40a3fbae88ae196afd1ebe5d1f15c66aafe9329d99"
+    },
+    {
+      "file": "bbsearch.gif",
+      "url": "https://bonzi.link/images/bbsearch.gif",
+      "width": 70,
+      "height": 76,
+      "frames": 1,
+      "sha256": "8d10d0bed2f6814abaf3aa81f01ba37b80490c682e04fb777dd266b9d8df3bf0"
+    },
+    {
+      "file": "bbmail.gif",
+      "url": "https://bonzi.link/images/bbmail.gif",
+      "width": 415,
+      "height": 260,
+      "frames": 1,
+      "sha256": "f8db7b8a83ab68b181271c2a877a2d436a2357abebac9dbd8c8203105646d432"
+    },
+    {
+      "file": "bbdownload.gif",
+      "url": "https://bonzi.link/images/bbdownload.gif",
+      "width": 415,
+      "height": 210,
+      "frames": 1,
+      "sha256": "ba7b5e4d33549b65e2ff47d456a7154959c87f4f4472e1263bd2c6081bd0021a"
+    },
+    {
+      "file": "bbcalendar.gif",
+      "url": "https://bonzi.link/images/bbcalendar.gif",
+      "width": 415,
+      "height": 287,
+      "frames": 1,
+      "sha256": "0092baf639b16ed972a86f8ff429640e62bbfd4044f71ef5bb6a7af0c22cef89"
+    },
+    {
+      "file": "banana24.gif",
+      "url": "https://bonzi.link/images/banana24.gif",
+      "width": 22,
+      "height": 19,
+      "frames": 1,
+      "sha256": "5231cfe401d67402dd96bd142d9035abe71b95a163c093783545e117fab520fd"
+    },
+    {
+      "file": "bonz24.gif",
+      "url": "https://bonzi.link/images/bonz24.gif",
+      "width": 24,
+      "height": 24,
+      "frames": 1,
+      "sha256": "bca5b2a1a2a0515f37313368d0eda2f4a1cfc7a20070c1c965c74aa34448d1b0"
+    },
+    {
+      "file": "buddylogowbonz.gif",
+      "url": "https://bonzi.link/images/buddylogowbonz.gif",
+      "width": 299,
+      "height": 90,
+      "frames": 1,
+      "sha256": "cbc7a256a612ae91466f4277e694e8eb3154bec7027660b7b8dc3ded5d5e4013"
+    },
+    {
+      "file": "powerdby.gif",
+      "url": "https://bonzi.link/images/powerdby.gif",
+      "width": 114,
+      "height": 43,
+      "frames": 1,
+      "sha256": "eb5f44aabd5a6522d50923af6d045cbb0a1b997b68b855ff4e61d9bcaa853718"
+    },
+    {
+      "file": "shape353256027.gif",
+      "url": "https://bonzi.link/images/shape353256027.gif",
+      "width": 1066,
+      "height": 27,
+      "frames": 1,
+      "sha256": "463de896f212c76cb97eb435f53e588cc9a09c6412080b3f1b2ee70e01f167cb"
+    },
+    {
+      "file": "bambooad.gif",
+      "url": "https://bonzi.link/images/bambooad.gif",
+      "width": 520,
+      "height": 76,
+      "frames": 1,
+      "sha256": "5402d85912135b757d7c38e51f9e19c24d0972c5f78f96f82a5d620172c98626"
+    },
+    {
+      "file": "junglebackground.gif",
+      "url": "https://bonzi.link/images/junglebackground.gif",
+      "width": 550,
+      "height": 77,
+      "frames": 9,
+      "sha256": "5b41387def17f935233a2df829bcaec418d1c97622ec18bc7e77e52b35df4b36"
+    }
+  ]
+}

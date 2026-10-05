@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+"""Launch/control the standalone Bonzi Quickshell configuration."""
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import sys
+
+ROOT = Path(__file__).resolve().parent.parent
+CONFIG = str(ROOT / 'app')
+
+def graphical_environment():
+    env = os.environ.copy()
+    if not env.get('WAYLAND_DISPLAY'):
+        # Agent/terminal sessions can lack the already-running desktop environment.
+        result = subprocess.run(['pgrep', '-u', str(os.getuid()), '-x', 'Hyprland|quickshell'], capture_output=True, text=True)
+        for pid in result.stdout.split():
+            try:
+                entries = Path(f'/proc/{pid}/environ').read_bytes().split(b'\0')
+                values = dict(entry.decode().split('=', 1) for entry in entries if b'=' in entry)
+                for key in ('WAYLAND_DISPLAY', 'DISPLAY', 'XDG_RUNTIME_DIR', 'DBUS_SESSION_BUS_ADDRESS', 'HYPRLAND_INSTANCE_SIGNATURE'):
+                    if key in values:
+                        env[key] = values[key]
+                if env.get('WAYLAND_DISPLAY'):
+                    break
+            except (OSError, UnicodeError):
+                continue
+    env.setdefault('XDG_RUNTIME_DIR', f'/run/user/{os.getuid()}')
+    env.setdefault('DBUS_SESSION_BUS_ADDRESS', f'unix:path={env["XDG_RUNTIME_DIR"]}/bus')
+    return env
+
+def main():
+    if not shutil.which('quickshell'):
+        sys.exit('Quickshell is required. Install quickshell and flite using your package manager.')
+    args = sys.argv[1:]
+    command = args[0] if args else 'start'
+    if command in ('-h', '--help', 'help'):
+        print('bonzi [start|show|hide|toggle|wave|joke|fact|sleep|mute|menu|status|quit|say TEXT]')
+        return
+    env = graphical_environment()
+    if not env.get('WAYLAND_DISPLAY'):
+        sys.exit('No Wayland desktop session found. Run Bonzi from your desktop terminal.')
+    if command == 'start':
+        existing = subprocess.run(['quickshell', 'ipc', '-p', CONFIG, 'call', '--', 'bonzi', 'show'], env=env, capture_output=True)
+        if existing.returncode == 0:
+            return
+        if not shutil.which('flite'):
+            print('Note: flite is not installed; speech bubbles will work without audio.', file=sys.stderr)
+        os.execvpe('quickshell', ['quickshell', '-n', '-d', '-p', CONFIG], env)
+    allowed = {'show', 'hide', 'toggle', 'wave', 'joke', 'fact', 'sleep', 'mute', 'menu', 'status', 'quit', 'say'}
+    if command not in allowed:
+        sys.exit(f'Unknown command: {command}. Run bonzi --help.')
+    if command == 'say' and not args[1:]:
+        sys.exit('Usage: bonzi say TEXT')
+    params = [' '.join(args[1:])] if command == 'say' else []
+    result = subprocess.run(['quickshell', 'ipc', '-p', CONFIG, 'call', '--', 'bonzi', command, *params], env=env)
+    if result.returncode:
+        sys.exit('Bonzi is not responding. Start it with: bonzi start')
+
+if __name__ == '__main__':
+    main()

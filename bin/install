@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+"""Register the checkout in the user's launcher without enabling autostart."""
+import os
+from pathlib import Path
+
+root = Path(__file__).resolve().parent.parent
+binary = Path.home() / '.local/bin/bonzi'
+applications = Path(os.environ.get('XDG_DATA_HOME', str(Path.home() / '.local/share'))) / 'applications'
+entry = applications / 'bonzi-buddy.desktop'
+if binary.exists() or binary.is_symlink():
+    if not binary.is_symlink() or binary.resolve() != root / 'bin/bonzi':
+        raise SystemExit(f'Refusing to replace existing {binary}')
+else:
+    binary.parent.mkdir(parents=True, exist_ok=True)
+    binary.symlink_to(root / 'bin/bonzi')
+applications.mkdir(parents=True, exist_ok=True)
+# Desktop-entry quoted Exec arguments use their own escaping, not shell quoting.
+executable = str(root / 'bin/bonzi').replace('\\', '\\\\').replace('"', '\\"').replace('`', '\\`').replace('$', '\\$').replace('%', '%%')
+entry.write_text('[Desktop Entry]\nType=Application\nName=Bonzi Buddy\nComment=A little company for your desktop\n'
+                 f'Exec="{executable}" start\nIcon=face-smile\nTerminal=false\nCategories=Game;Amusement;\nStartupNotify=false\n')
+print(f'Installed {binary}\nInstalled {entry}\nAutostart is off. Launch with bonzi or your app menu.')

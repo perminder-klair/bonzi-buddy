@@ -1,0 +1,17 @@
+# Local credentials and configuration
+.env
+.env.*
+!.env.example
+*.local
+
+# Python caches
+__pycache__/
+*.py[cod]
+.venv/
+
+# Runtime and development artifacts
+*.log
+*.qslog
+*.wav
+int_f0_target_mean=135
+.DS_Store

@@ -1,0 +1,25 @@
+{
+  "file": "bonzi-sprites.png",
+  "created": "2026-10-05",
+  "source": "OpenAI built-in image generation; new Bonzi-inspired artwork",
+  "dimensions": [
+    1774,
+    887
+  ],
+  "layout": {
+    "columns": 4,
+    "rows": 2
+  },
+  "frames": [
+    "idle",
+    "blink",
+    "speak",
+    "speak-expressive",
+    "wave-a",
+    "wave-b",
+    "sleep",
+    "celebrate"
+  ],
+  "sha256": "2b551f9b64c343f955ca80fb0a84d50e2649e7c4893546780a2e3d9cee46410a",
+  "notes": "Original RGBA output preserved. QML clips proportional cells. Not extracted from the historical Windows executable."
+}

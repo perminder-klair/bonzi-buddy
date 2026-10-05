@@ -28,7 +28,7 @@ Registration adds `~/.local/bin/bonzi` and a desktop entry. Keep this checkout a
 | Double-click | Celebrate |
 | Right-click | Open/close the control menu |
 | Click a speech bubble | Dismiss it and stop speaking |
-| Menu | Jokes, facts, mute, sleep, size, reduced motion, monitor, hide, quit |
+| Menu | Buddy controls, awareness/privacy, live status, reaction rules |
 
 ```sh
 bonzi say "Hello from your desktop."
@@ -51,12 +51,37 @@ bonzi quit
 - A transparent Wayland top-layer surface reserves no tiling space. Only the character's approximate hit area and visible controls receive pointer input.
 - Speech runs in a separate local `flite` process. It uses a retro synthetic voice, not the proprietary historical Sydney voice. Audio never requires a server.
 - The app has scripted jokes and facts, not an AI conversation backend. It makes no network requests.
-- The overlay does not request keyboard focus. The CLI provides keyboard-accessible actions.
+- The overlay accepts keyboard focus only while the settings panel is open, for editable controls. The CLI also provides actions.
+
+## Awareness and reactions
+
+Right-click Buddy for four tabs: **Buddy**, **Awareness**, **Status**, and **Reactions**.
+
+- Switch windows, media, system health, and idle awareness independently.
+- Choose stay put, follow the active monitor, or avoid the active window. Avoidance parks in a less obstructive corner, moves at most once every 30 seconds, and pauses near the pointer or while the panel is open.
+- Quiet disables automatic reactions; balanced and chatty default to 120- and 30-second cooldowns. Customize the cooldown in Reactions.
+- Focus mode silences automatic reactions and speech during fullscreen, Omarchy DND, or chosen app classes. Fullscreen hiding is separately configurable.
+- Inspect current readings in Status. Choose none, dance, wave, speak, or sleep for music starting, becoming idle, changing app, and sustained system pressure.
+- Music dances last 3.6 seconds with three alternating pose sequences, then Buddy settles down even while playback continues. Idle-triggered sleep wakes when input resumes.
+
+Window titles are off by default. Notifications and notification-body access are **deferred and disabled**. DND reads only the shell's on/off setting. Processing is local, with no activity history or network requests. See [awareness design and privacy boundaries](docs/awareness.md).
+
+```sh
+bonzi panel 2                         # live status (0–3)
+bonzi option movement stay
+bonzi option personality balanced
+bonzi option musicRule dance
+bonzi option focusApps "kitty,org.obsproject.Studio"
+bonzi option windowTitles false
+```
 
 ## Development and verification
 
 ```sh
-python tests/runtime_smoke.py  # requires a running Bonzi; speaks briefly and restores settings
+python -m unittest discover -s tests -p 'test_*.py'
+node tests/reactions.test.cjs
+python tests/awareness_runtime.py  # isolated muted instance on the real desktop
+python tests/runtime_smoke.py     # optional live speech test; changes/restores running Buddy
 ```
 
 Use `quickshell -p app` from a desktop terminal for foreground logs. During development, stop/start around substantial changes. The `bonzi` launcher can recover the local graphical environment when invoked from an agent terminal outside the desktop session.

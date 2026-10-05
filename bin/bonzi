@@ -35,7 +35,7 @@ def main():
     args = sys.argv[1:]
     command = args[0] if args else 'start'
     if command in ('-h', '--help', 'help'):
-        print('bonzi [start|show|hide|toggle|wave|joke|fact|sleep|mute|menu|status|quit|say TEXT]')
+        print('bonzi [start|show|hide|toggle|wave|joke|fact|sleep|mute|menu|status|quit|say TEXT|panel 0-3|option NAME VALUE]')
         return
     env = graphical_environment()
     if not env.get('WAYLAND_DISPLAY'):
@@ -47,12 +47,16 @@ def main():
         if not shutil.which('flite'):
             print('Note: flite is not installed; speech bubbles will work without audio.', file=sys.stderr)
         os.execvpe('quickshell', ['quickshell', '-n', '-d', '-p', CONFIG], env)
-    allowed = {'show', 'hide', 'toggle', 'wave', 'joke', 'fact', 'sleep', 'mute', 'menu', 'status', 'quit', 'say'}
+    allowed = {'show', 'hide', 'toggle', 'wave', 'joke', 'fact', 'sleep', 'mute', 'menu', 'status', 'quit', 'say', 'panel', 'option'}
     if command not in allowed:
         sys.exit(f'Unknown command: {command}. Run bonzi --help.')
     if command == 'say' and not args[1:]:
         sys.exit('Usage: bonzi say TEXT')
-    params = [' '.join(args[1:])] if command == 'say' else []
+    if command == 'option' and len(args) != 3:
+        sys.exit('Usage: bonzi option NAME VALUE')
+    if command == 'panel' and (len(args) != 2 or args[1] not in ('0','1','2','3')):
+        sys.exit('Usage: bonzi panel 0-3 (Buddy, Awareness, Status, Reactions)')
+    params = [' '.join(args[1:])] if command == 'say' else args[1:]
     result = subprocess.run(['quickshell', 'ipc', '-p', CONFIG, 'call', '--', 'bonzi', command, *params], env=env)
     if result.returncode:
         sys.exit('Bonzi is not responding. Start it with: bonzi start')
